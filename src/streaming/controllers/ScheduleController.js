@@ -194,7 +194,6 @@ function ScheduleController(config) {
                         { representationId: currentRepresentationInfo.id, sender: instance },
                         { streamId: streamInfo.id, mediaType: type }
                     );
-                    lastInitQuality = currentRepresentationInfo.quality;
                     checkPlaybackQuality = false;
                 } else {
                     const replacement = replaceRequestArray.shift();
