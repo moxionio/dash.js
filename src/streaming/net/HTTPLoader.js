@@ -356,7 +356,7 @@ function HTTPLoader(cfg) {
 
         requests.forEach(x => {
             // This filter is added to fix the video artifact problem as this was happening due to dashjs aborting inflight
-            if (x.request.type === "InitializationSegment") {
+            if (x.request.type === 'InitializationSegment') {
                 logger.warn('Skip aborting the inflight InitializationSegment request: ', x.request.url);
                 return;
             }
