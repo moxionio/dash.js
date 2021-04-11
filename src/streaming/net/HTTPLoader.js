@@ -342,11 +342,6 @@ function HTTPLoader(cfg) {
      * @instance
      */
     function abort() {
-        // This filter is added to fix the video artifact problem as this was happening due to dashjs aborting inflight
-        if (x.request.type === "InitializationSegment") {
-            logger.warn('Skip aborting the inflight InitializationSegment request: ', x.request.url);
-            return;
-        }
         retryRequests.forEach(t => {
             clearTimeout(t.timeout);
             // abort request in order to trigger LOADING_ABANDONED event
@@ -360,6 +355,11 @@ function HTTPLoader(cfg) {
         delayedRequests = [];
 
         requests.forEach(x => {
+            // This filter is added to fix the video artifact problem as this was happening due to dashjs aborting inflight
+            if (x.request.type === "InitializationSegment") {
+                logger.warn('Skip aborting the inflight InitializationSegment request: ', x.request.url);
+                return;
+            }
             // abort will trigger onloadend which we don't want
             // when deliberately aborting inflight requests -
             // set them to undefined so they are not called
